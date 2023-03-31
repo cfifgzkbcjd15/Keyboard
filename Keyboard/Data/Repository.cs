@@ -2,7 +2,7 @@
 
 namespace Keyboard.Data
 {
-    public class Repository
+    public partial class Repository
     {
         public DbContextOptions<PurchasesContext> options { get; set; }
         public Repository()

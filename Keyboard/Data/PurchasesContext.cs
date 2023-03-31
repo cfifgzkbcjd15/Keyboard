@@ -10,8 +10,8 @@ namespace Keyboard.Data
         public DbSet<Currency> Currency { get; set; }
         public DbSet<SingleCustomerReason> SingleCustomerReason { get; set; }
         public DbSet<ExecutionDate> ExecutionDate { get; set; }
-        public DbSet<Budget> Budget { get; set; }
-        public DbSet<Budgetary> Budgetary { get; set; }
+        public DbSet<Extrabudget> Budget { get; set; }
+        public DbSet<Extrabudgetary> Budgetary { get; set; }
         public DbSet<Finances> Finances { get; set; }
         public DbSet<OKPD> OKPD { get; set; }
         public DbSet<OKEI> OKEI { get; set; }
@@ -20,8 +20,6 @@ namespace Keyboard.Data
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Signature> Signature { get; set; }
         public DbSet<PrintForm> PrintForm { get; set; }
-        public DbSet<Modification> Modification { get; set; }
-        public DbSet<Export> Export { get; set; }
         public PurchasesContext(DbContextOptions<PurchasesContext> options)
             : base(options)
         {

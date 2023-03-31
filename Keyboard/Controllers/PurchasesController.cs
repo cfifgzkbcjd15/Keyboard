@@ -1,6 +1,14 @@
 ﻿using Keyboard.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Serialization;
+using System;
+using System.IO;
+using System.Xml;
+using System.Runtime.ConstrainedExecution;
+using Keyboard.Code;
+using Microsoft.AspNetCore.Components.Forms;
+using System.Text.Json;
 
 namespace Keyboard.Controllers
 {
@@ -12,7 +20,7 @@ namespace Keyboard.Controllers
         /// Вывод с фильтрацией
         /// </summary>
         [HttpPost]
-        public async Task<Export> FilterPurchases()
+        public async Task<Contract> FilterPurchases()
         {
             return null;
         }
