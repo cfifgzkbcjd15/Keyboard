@@ -19,11 +19,16 @@ namespace Keyboard.Data
         public DbSet<Country> Country { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Signature> Signature { get; set; }
-        public DbSet<PrintForm> PrintForm { get; set; }
+        public DbSet<PrintForm> PrintForms { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
+        public DbSet<LegalForm> LegalForms { get; set; }
+        public DbSet<ContactInfo> ContactInfo { get; set; }
+        public DbSet<OosOrder> OosOrder { get; set; }
         public PurchasesContext(DbContextOptions<PurchasesContext> options)
             : base(options)
         {
-            Database.EnsureCreated();   // создаем базу данных при первом обращении
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
     }
 }

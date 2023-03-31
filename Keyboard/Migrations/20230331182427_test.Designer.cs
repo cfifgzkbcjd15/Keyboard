@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Keyboard.Migrations
 {
     [DbContext(typeof(PurchasesContext))]
-    [Migration("20230331114421_test")]
+    [Migration("20230331182427_test")]
     partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Keyboard.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Keyboard.Models.Budget", b =>
+            modelBuilder.Entity("Keyboard.Models.ContactInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,123 +32,97 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Code")
-                        .HasColumnType("integer");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MiddleName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Budget");
-                });
-
-            modelBuilder.Entity("Keyboard.Models.Budgetary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("KBK")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Month")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("SubstageMonth")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SubstageYear")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Budgetary");
+                    b.ToTable("ContactInfo");
                 });
 
             modelBuilder.Entity("Keyboard.Models.Contract", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CurrencyId")
+                    b.Property<int?>("CurrencyId")
                         .HasColumnType("integer");
 
                     b.Property<string>("CurrentContractStage")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ExecutionDateId")
+                    b.Property<string>("DocumentBase")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ExecutionDateId")
                         .HasColumnType("integer");
 
                     b.Property<int>("FinancesId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("FoundationId")
+                    b.Property<int?>("FoundationId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Href")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ModificationId")
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Price")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("PrintFormId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Number")
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("PrintFormId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ProtocolDate")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<double>("RegNum")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("SchemeVersion")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("SignDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("SingleCustomerReasonId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SuppliersId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Text")
+                    b.Property<string>("RegNum")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("VersionNumber")
+                    b.Property<string>("SchemeVersion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SignDate")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SingleCustomerReasonId")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("SuppliersId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("VersionNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -162,8 +136,6 @@ namespace Keyboard.Migrations
 
                     b.HasIndex("FoundationId");
 
-                    b.HasIndex("ModificationId");
-
                     b.HasIndex("PrintFormId");
 
                     b.HasIndex("ProductsId");
@@ -172,7 +144,7 @@ namespace Keyboard.Migrations
 
                     b.HasIndex("SuppliersId");
 
-                    b.ToTable("Contract");
+                    b.ToTable("Contracts");
                 });
 
             modelBuilder.Entity("Keyboard.Models.Country", b =>
@@ -183,8 +155,9 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CountryCode")
-                        .HasColumnType("integer");
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("CountryFullName")
                         .IsRequired()
@@ -228,16 +201,24 @@ namespace Keyboard.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Inn")
+                    b.Property<string>("Inn")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Kpp")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("LegalFormId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Kpp")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RegNum")
-                        .HasColumnType("integer");
+                    b.Property<string>("RegNum")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LegalFormId");
 
                     b.ToTable("Customers");
                 });
@@ -250,18 +231,20 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Month")
-                        .HasColumnType("integer");
+                    b.Property<string>("Month")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("ExecutionDate");
                 });
 
-            modelBuilder.Entity("Keyboard.Models.Export", b =>
+            modelBuilder.Entity("Keyboard.Models.Extrabudget", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -269,30 +252,54 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ContractId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Oos")
+                    b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Xmlns")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Xsi")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContractId");
+                    b.ToTable("Budget");
+                });
 
-                    b.ToTable("Export");
+            modelBuilder.Entity("Keyboard.Models.Extrabudgetary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("KOSGU")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Month")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Price")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubstageMonth")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubstageYear")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Budgetary");
                 });
 
             modelBuilder.Entity("Keyboard.Models.Finances", b =>
@@ -303,13 +310,10 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BudgetId")
+                    b.Property<int?>("ExtrabudgetId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("BudgetLevel")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("BudgetaryId")
+                    b.Property<int?>("ExtrabudgetaryId")
                         .HasColumnType("integer");
 
                     b.Property<string>("FinanceSource")
@@ -318,9 +322,9 @@ namespace Keyboard.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BudgetId");
+                    b.HasIndex("ExtrabudgetId");
 
-                    b.HasIndex("BudgetaryId");
+                    b.HasIndex("ExtrabudgetaryId");
 
                     b.ToTable("Finances");
                 });
@@ -333,10 +337,12 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("SingleCustomer")
-                        .HasColumnType("boolean");
+                    b.Property<int?>("OosOrderId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OosOrderId");
 
                     b.ToTable("Foundations");
                 });
@@ -358,32 +364,7 @@ namespace Keyboard.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LegalForm");
-                });
-
-            modelBuilder.Entity("Keyboard.Models.Modification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Base")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Modification");
+                    b.ToTable("LegalForms");
                 });
 
             modelBuilder.Entity("Keyboard.Models.OKEI", b =>
@@ -394,8 +375,9 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Code")
-                        .HasColumnType("integer");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("NationalCode")
                         .IsRequired()
@@ -427,6 +409,35 @@ namespace Keyboard.Migrations
                     b.ToTable("OKPD");
                 });
 
+            modelBuilder.Entity("Keyboard.Models.OosOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Chardata")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LotNumbert")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NotificationNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Placing")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OosOrder");
+                });
+
             modelBuilder.Entity("Keyboard.Models.PrintForm", b =>
                 {
                     b.Property<int>("Id")
@@ -446,7 +457,7 @@ namespace Keyboard.Migrations
 
                     b.HasIndex("SignatureId");
 
-                    b.ToTable("PrintForm");
+                    b.ToTable("PrintForms");
                 });
 
             modelBuilder.Entity("Keyboard.Models.Product", b =>
@@ -461,26 +472,38 @@ namespace Keyboard.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("OKEIId")
+                    b.Property<int?>("OKEIId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("OKPDId")
+                    b.Property<int?>("OKPDId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("double precision");
+                    b.Property<string>("Price")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("Sid")
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Sum")
-                        .HasColumnType("double precision");
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sid")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sum")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OKEIId");
 
                     b.HasIndex("OKPDId");
+
+                    b.HasIndex("ProductsId");
 
                     b.ToTable("Product");
                 });
@@ -493,12 +516,7 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Products");
                 });
@@ -511,10 +529,6 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
@@ -526,11 +540,8 @@ namespace Keyboard.Migrations
 
             modelBuilder.Entity("Keyboard.Models.SingleCustomerReason", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -549,25 +560,35 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ContactEMail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContactFax")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ContactInfoId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ContactPhone")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("integer");
 
                     b.Property<string>("FactualAddress")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Inn")
-                        .HasColumnType("integer");
+                    b.Property<string>("Inn")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("Kpp")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("LegalFormId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Kpp")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("OrganizationName")
                         .IsRequired()
@@ -581,11 +602,16 @@ namespace Keyboard.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("SuppliersId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ContactInfoId");
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("LegalFormId");
+                    b.HasIndex("SuppliersId");
 
                     b.ToTable("Supplier");
                 });
@@ -598,12 +624,7 @@ namespace Keyboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SupplierId");
 
                     b.ToTable("Suppliers");
                 });
@@ -612,21 +633,15 @@ namespace Keyboard.Migrations
                 {
                     b.HasOne("Keyboard.Models.Currency", "Currency")
                         .WithMany()
-                        .HasForeignKey("CurrencyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CurrencyId");
 
                     b.HasOne("Keyboard.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Keyboard.Models.ExecutionDate", "ExecutionDate")
                         .WithMany()
-                        .HasForeignKey("ExecutionDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExecutionDateId");
 
                     b.HasOne("Keyboard.Models.Finances", "Finances")
                         .WithMany()
@@ -636,39 +651,23 @@ namespace Keyboard.Migrations
 
                     b.HasOne("Keyboard.Models.Foundation", "Foundation")
                         .WithMany()
-                        .HasForeignKey("FoundationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Keyboard.Models.Modification", "Modification")
-                        .WithMany()
-                        .HasForeignKey("ModificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FoundationId");
 
                     b.HasOne("Keyboard.Models.PrintForm", "PrintForm")
                         .WithMany()
-                        .HasForeignKey("PrintFormId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PrintFormId");
 
                     b.HasOne("Keyboard.Models.Products", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductsId");
 
                     b.HasOne("Keyboard.Models.SingleCustomerReason", "SingleCustomerReason")
                         .WithMany()
-                        .HasForeignKey("SingleCustomerReasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SingleCustomerReasonId");
 
                     b.HasOne("Keyboard.Models.Suppliers", "Suppliers")
                         .WithMany()
-                        .HasForeignKey("SuppliersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuppliersId");
 
                     b.Navigation("Currency");
 
@@ -680,8 +679,6 @@ namespace Keyboard.Migrations
 
                     b.Navigation("Foundation");
 
-                    b.Navigation("Modification");
-
                     b.Navigation("PrintForm");
 
                     b.Navigation("Products");
@@ -691,34 +688,37 @@ namespace Keyboard.Migrations
                     b.Navigation("Suppliers");
                 });
 
-            modelBuilder.Entity("Keyboard.Models.Export", b =>
+            modelBuilder.Entity("Keyboard.Models.Customer", b =>
                 {
-                    b.HasOne("Keyboard.Models.Contract", "Contract")
+                    b.HasOne("Keyboard.Models.LegalForm", "LegalForm")
                         .WithMany()
-                        .HasForeignKey("ContractId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LegalFormId");
 
-                    b.Navigation("Contract");
+                    b.Navigation("LegalForm");
                 });
 
             modelBuilder.Entity("Keyboard.Models.Finances", b =>
                 {
-                    b.HasOne("Keyboard.Models.Budget", "Budget")
+                    b.HasOne("Keyboard.Models.Extrabudget", "Extrabudget")
                         .WithMany()
-                        .HasForeignKey("BudgetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExtrabudgetId");
 
-                    b.HasOne("Keyboard.Models.Budgetary", "Budgetary")
+                    b.HasOne("Keyboard.Models.Extrabudgetary", "Extrabudgetary")
                         .WithMany()
-                        .HasForeignKey("BudgetaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExtrabudgetaryId");
 
-                    b.Navigation("Budget");
+                    b.Navigation("Extrabudget");
 
-                    b.Navigation("Budgetary");
+                    b.Navigation("Extrabudgetary");
+                });
+
+            modelBuilder.Entity("Keyboard.Models.Foundation", b =>
+                {
+                    b.HasOne("Keyboard.Models.OosOrder", "OosOrder")
+                        .WithMany()
+                        .HasForeignKey("OosOrderId");
+
+                    b.Navigation("OosOrder");
                 });
 
             modelBuilder.Entity("Keyboard.Models.PrintForm", b =>
@@ -736,59 +736,47 @@ namespace Keyboard.Migrations
                 {
                     b.HasOne("Keyboard.Models.OKEI", "OKEI")
                         .WithMany()
-                        .HasForeignKey("OKEIId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OKEIId");
 
                     b.HasOne("Keyboard.Models.OKPD", "OKPD")
                         .WithMany()
-                        .HasForeignKey("OKPDId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OKPDId");
+
+                    b.HasOne("Keyboard.Models.Products", null)
+                        .WithMany("Product")
+                        .HasForeignKey("ProductsId");
 
                     b.Navigation("OKEI");
 
                     b.Navigation("OKPD");
                 });
 
-            modelBuilder.Entity("Keyboard.Models.Products", b =>
-                {
-                    b.HasOne("Keyboard.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Keyboard.Models.Supplier", b =>
                 {
+                    b.HasOne("Keyboard.Models.ContactInfo", "ContactInfo")
+                        .WithMany()
+                        .HasForeignKey("ContactInfoId");
+
                     b.HasOne("Keyboard.Models.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId");
 
-                    b.HasOne("Keyboard.Models.LegalForm", "LegalForm")
-                        .WithMany()
-                        .HasForeignKey("LegalFormId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Keyboard.Models.Suppliers", null)
+                        .WithMany("Supplier")
+                        .HasForeignKey("SuppliersId");
+
+                    b.Navigation("ContactInfo");
 
                     b.Navigation("Country");
+                });
 
-                    b.Navigation("LegalForm");
+            modelBuilder.Entity("Keyboard.Models.Products", b =>
+                {
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Keyboard.Models.Suppliers", b =>
                 {
-                    b.HasOne("Keyboard.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Supplier");
                 });
 #pragma warning restore 612, 618

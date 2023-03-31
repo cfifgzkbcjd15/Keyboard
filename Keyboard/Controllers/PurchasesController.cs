@@ -24,5 +24,10 @@ namespace Keyboard.Controllers
         {
             return null;
         }
+        [HttpPost("test")]
+        public Contract Post(Contract result)
+        {
+            return result;
+        }
     }
 }

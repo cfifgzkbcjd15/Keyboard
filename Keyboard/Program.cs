@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHostedService<RabbitMqListener>();
+//builder.Services.AddHostedService<RabbitMqListener>();
 ConfigurationManager configuration = builder.Configuration;
 string connection = configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<PurchasesContext>(options =>
@@ -86,4 +86,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-//Scaffold-DbContext "Host=localhost;Port=5432;Database=schedule;Username=postgres;Password=ihesop69" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir "MigrateTable"
+//Scaffold-DbContext "Host=localhost;Port=5432;Database=purchases;Username=postgres;Password=ihesop69" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir "NewData"

@@ -16,7 +16,7 @@ namespace Keyboard.Code
 
         public RabbitMqListener()
         {
-            _repository=new Repository();
+            _repository = new Repository();
             // Не забудьте вынести значения "localhost" и "MyQueue"
             // в файл конфигурации
             var factory = new ConnectionFactory { Uri = new Uri("amqps://apxnlkkv:7M5gMijKZRT2WCRM5jq6ci2vprJ3fCvP@rattlesnake.rmq.cloudamqp.com/apxnlkkv") };
@@ -25,30 +25,31 @@ namespace Keyboard.Code
             _channel.QueueDeclare(queue: "file.changes.v1-dwh", durable: false, exclusive: false, autoDelete: false, arguments: null);
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            stoppingToken.ThrowIfCancellationRequested();
-
-            var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (ch, ea) =>
+            try
             {
-                try { 
-                var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var result=JsonSerializer.Deserialize<Contract>(content);
-                // Каким-то образом обрабатываем полученное сообщение
-                _repository.JsonToBase(result);
+                stoppingToken.ThrowIfCancellationRequested();
 
-                _channel.BasicAck(ea.DeliveryTag, false);
-                }
-                catch(Exception ex)
+                var consumer = new EventingBasicConsumer(_channel);
+                consumer.Received += async (ch, ea) =>
                 {
-                    Debug.Write(ex.Message);
-                }
-            };
 
-            _channel.BasicConsume("file.changes.v1-dwh", false, consumer);
+                    var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                    var result = JsonSerializer.Deserialize<Contract>(content);
+                    // Каким-то образом обрабатываем полученное сообщение
+                    await _repository.JsonToBase(result);
 
-            return Task.CompletedTask;
+                    _channel.BasicAck(ea.DeliveryTag, false);
+
+                };
+
+                _channel.BasicConsume("file.changes.v1-dwh", false, consumer);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+            }
         }
 
         public override void Dispose()
