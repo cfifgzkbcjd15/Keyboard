@@ -2,9 +2,10 @@
 using RabbitMQ.Client;
 using System.Text;
 using System.Diagnostics;
-using System.Text.Json;
+//using System.Text.Json;
 using Keyboard.Models;
 using Keyboard.Data;
+using Newtonsoft.Json;
 
 namespace Keyboard.Code
 {
@@ -12,17 +13,19 @@ namespace Keyboard.Code
     {
         private IConnection _connection;
         private IModel _channel;
-        public Repository _repository;
+        private MongoContext db;
 
-        public RabbitMqListener()
+        public RabbitMqListener(MongoContext _db)
         {
-            _repository = new Repository();
             // Не забудьте вынести значения "localhost" и "MyQueue"
             // в файл конфигурации
-            var factory = new ConnectionFactory { Uri = new Uri("amqps://apxnlkkv:7M5gMijKZRT2WCRM5jq6ci2vprJ3fCvP@rattlesnake.rmq.cloudamqp.com/apxnlkkv") };
+            var factory = new ConnectionFactory { Uri = new Uri("amqp://admin:admin@192.168.31.104:5672") };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: "file.changes.v1-dwh", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _channel.ExchangeDeclare("file.changes.v1", "topic", true, false, null);
+            _channel.QueueDeclare(queue: "file.changes.v1-dwh", durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueBind("file.changes.v1-dwh", "file.changes.v1", "#", null);
+            db = _db;
         }
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -34,11 +37,10 @@ namespace Keyboard.Code
                 var consumer = new EventingBasicConsumer(_channel);
                 consumer.Received += async (ch, ea) =>
                 {
-
                     var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                    var result = JsonSerializer.Deserialize<Contract>(content);
-                    // Каким-то образом обрабатываем полученное сообщение
-                    await _repository.JsonToBase(result);
+                    //var result = JsonSerializer.Deserialize<Contract>(content);
+                    var result = JsonConvert.DeserializeObject<Contract>(content);
+                    await db.CreateContracts(result);
 
                     _channel.BasicAck(ea.DeliveryTag, false);
 
