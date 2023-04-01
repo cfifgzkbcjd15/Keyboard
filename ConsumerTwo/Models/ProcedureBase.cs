@@ -1,9 +1,9 @@
 ﻿
-using ConsumerTwo.Models.OnlyContractProcedure;
+using ConsumerTwo.Models;
 
 namespace ConsumerTwo.Models
 {
-    public class Purchases
+    public class ProcedureBase
     {
         public ContractProcedure ContractProcedure { get; set; }
 

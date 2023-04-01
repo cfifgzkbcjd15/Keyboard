@@ -3,10 +3,9 @@ using RabbitMQ.Client;
 using System.Text;
 using System.Diagnostics;
 //using System.Text.Json;
-using Keyboard.Models;
 using Keyboard.Data;
 using Newtonsoft.Json;
-using Keyboard.Models.OnlyContract;
+using Keyboard.Models;
 
 namespace Keyboard.Code
 {
@@ -23,9 +22,9 @@ namespace Keyboard.Code
             var factory = new ConnectionFactory { Uri = new Uri("amqp://admin:admin@192.168.31.104:5672") };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare("file.changes.v1", "topic", true, false, null);
+            //_channel.ExchangeDeclare("file.changes.v1", "direct", true, false, null);
             _channel.QueueDeclare(queue: "file.changes.v1-dwh", durable: true, exclusive: false, autoDelete: false, arguments: null);
-            _channel.QueueBind("file.changes.v1-dwh", "file.changes.v1", "#", null);
+            _channel.QueueBind("file.changes.v1-dwh", "file.changes.v1", "contract", null);
             db = _db;
         }
 

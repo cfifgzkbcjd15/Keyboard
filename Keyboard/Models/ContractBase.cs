@@ -1,8 +1,8 @@
-﻿using Keyboard.Models.OnlyContract;
+﻿using Keyboard.Models;
 
 namespace Keyboard.Models
 {
-    public class Purchases
+    public class ContractBase
     {
         public Contract Contract { get; set; }
 

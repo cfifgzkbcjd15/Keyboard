@@ -1,7 +1,7 @@
 ﻿using Keyboard.Models;
 using Microsoft.AspNetCore.Mvc;
 using Keyboard.Data;
-using Keyboard.Models.OnlyContract;
+using Keyboard.Models;
 
 namespace Keyboard.Controllers
 {
@@ -15,11 +15,11 @@ namespace Keyboard.Controllers
         {
             db = _db;
         }
-        //[HttpGet]
-        //public async Task<string> Get()
-        //{
-        //    return await db.GetContract();
-        //}
+        [HttpGet]
+        public async Task<string> Get()
+        {
+            return await db.GetContract();
+        }
         /// <summary>
         /// Вывод с фильтрацией
         /// </summary>
@@ -28,6 +28,20 @@ namespace Keyboard.Controllers
         {
             return await db.GetFilterContract(request);
         }
+        //[HttpPost("withContractProcedure")]
+        //public async Task<List<ContractProcedure>> FilterContractProcedure(RequestFilterContractProcedure request)
+        //{
+        //    return await db.GetFilterContractProcedure(request);
+        //}
+        ///// <summary>
+        ///// Тестовое добавление
+        ///// </summary>
+        //[HttpPost("test")]
+        //public async Task<string> Post(ContractProcedure request)
+        //{
+        //    var result = await db.CreateContractsProcedure(request);
+        //    return result;
+        //}
         /// <summary>
         /// Тестовое добавление
         /// </summary>

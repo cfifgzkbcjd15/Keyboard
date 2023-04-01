@@ -4,24 +4,32 @@ using System.Runtime.CompilerServices;
 using MongoDB.Driver.Linq;
 using System.Diagnostics;
 using ConsumerTwo.Code;
-using ConsumerTwo.Models.OnlyContractProcedure;
 using ConsumerTwo.Models;
+using MongoDB.Bson;
 
 namespace ConsumerTwo.Data
 {
     public class MongoContext
     {
-        private readonly IMongoDatabase db;
+        private readonly IMongoCollection<ContractProcedure> db;
         public MongoContext(IOptions<MongoDBSettings> mongoDBSettings)
         {
             MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
-            db = client.GetDatabase(mongoDBSettings.Value.DatabaseName);;
+            IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
+            db = database.GetCollection<ContractProcedure>(mongoDBSettings.Value.ConnectionName);
+        }
+        public async Task<string> GetContract()
+        {  // обращаемся к базе данных // получаем коллекцию users
+            //await db.DeleteManyAsync(x => x.id != null);
+            var contracts = await db.Find("{}").ToListAsync();
+            var result = contracts.ToJson();
+            return result;
         }
         public async Task<string> CreateContractsProcedure(ContractProcedure request)
         {
             try
             {
-                await db.GetCollection<ContractProcedure>("contractsProcedure").InsertOneAsync(request);
+                await db.InsertOneAsync(request);
                 return "Success";
             }
             catch (Exception ex)

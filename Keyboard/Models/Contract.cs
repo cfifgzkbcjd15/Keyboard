@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-namespace Keyboard.Models.OnlyContract;
 
-// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+namespace Keyboard.Models;
 public class Budget
 {
     [JsonProperty("code")]
@@ -45,75 +44,6 @@ public class ContactInfo
 
     [JsonProperty("middleName")]
     public string middleName { get; set; }
-}
-
-public class Contract
-{
-    [JsonProperty("schemeVersion")]
-    public string schemeVersion { get; set; }
-
-    [JsonProperty("id")]
-    public string id { get; set; }
-
-    [JsonProperty("regNum")]
-    public string regNum { get; set; }
-
-    [JsonProperty("number")]
-    public string number { get; set; }
-
-    [JsonProperty("publishDate")]
-    public DateTime publishDate { get; set; }
-
-    [JsonProperty("signDate")]
-    public string signDate { get; set; }
-
-    [JsonProperty("versionNumber")]
-    public string versionNumber { get; set; }
-
-    [JsonProperty("foundation")]
-    public Foundation foundation { get; set; }
-
-    [JsonProperty("customer")]
-    public Customer customer { get; set; }
-
-    [JsonProperty("protocolDate")]
-    public string protocolDate { get; set; }
-
-    [JsonProperty("documentBase")]
-    public string documentBase { get; set; }
-
-    [JsonProperty("price")]
-    public double price { get; set; }
-
-    [JsonProperty("currency")]
-    public Currency currency { get; set; }
-
-    [JsonProperty("singleCustomerReason")]
-    public SingleCustomerReason singleCustomerReason { get; set; }
-
-    [JsonProperty("executionDate")]
-    public ExecutionDate executionDate { get; set; }
-
-    [JsonProperty("finances")]
-    public Finances finances { get; set; }
-
-    [JsonProperty("products")]
-    public Products products { get; set; }
-
-    [JsonProperty("suppliers")]
-    public Suppliers suppliers { get; set; }
-
-    [JsonProperty("href")]
-    public string href { get; set; }
-
-    [JsonProperty("printForm")]
-    public PrintForm printForm { get; set; }
-
-    [JsonProperty("Modification")]
-    public Modification Modification { get; set; }
-
-    [JsonProperty("currentContractStage")]
-    public string currentContractStage { get; set; }
 }
 
 public class Country
@@ -185,7 +115,7 @@ public class Extrabudgetary
     public string KOSGU { get; set; }
 
     [JsonProperty("price")]
-    public int price { get; set; }
+    public double price { get; set; }
 }
 
 public class Finances
@@ -290,7 +220,7 @@ public class Product
     public double price { get; set; }
 
     [JsonProperty("quantity")]
-    public int quantity { get; set; }
+    public double quantity { get; set; }
 
     [JsonProperty("sum")]
     public double sum { get; set; }
@@ -300,6 +230,75 @@ public class Products
 {
     [JsonProperty("product")]
     public List<Product> product { get; set; }
+}
+
+public class Contract
+{
+    [JsonProperty("schemeVersion")]
+    public string schemeVersion { get; set; }
+
+    [JsonProperty("id")]
+    public string id { get; set; }
+
+    [JsonProperty("regNum")]
+    public string regNum { get; set; }
+
+    [JsonProperty("number")]
+    public string number { get; set; }
+
+    [JsonProperty("publishDate")]
+    public DateTime publishDate { get; set; }
+
+    [JsonProperty("signDate")]
+    public string signDate { get; set; }
+
+    [JsonProperty("versionNumber")]
+    public string versionNumber { get; set; }
+
+    [JsonProperty("foundation")]
+    public Foundation foundation { get; set; }
+
+    [JsonProperty("customer")]
+    public Customer customer { get; set; }
+
+    [JsonProperty("protocolDate")]
+    public string protocolDate { get; set; }
+
+    [JsonProperty("documentBase")]
+    public string documentBase { get; set; }
+
+    [JsonProperty("price")]
+    public double price { get; set; }
+
+    [JsonProperty("currency")]
+    public Currency currency { get; set; }
+
+    [JsonProperty("singleCustomerReason")]
+    public SingleCustomerReason singleCustomerReason { get; set; }
+
+    [JsonProperty("executionDate")]
+    public ExecutionDate executionDate { get; set; }
+
+    [JsonProperty("finances")]
+    public Finances finances { get; set; }
+
+    [JsonProperty("products")]
+    public Products products { get; set; }
+
+    [JsonProperty("suppliers")]
+    public Suppliers suppliers { get; set; }
+
+    [JsonProperty("href")]
+    public string href { get; set; }
+
+    [JsonProperty("printForm")]
+    public PrintForm printForm { get; set; }
+
+    [JsonProperty("Modification")]
+    public Modification Modification { get; set; }
+
+    [JsonProperty("currentContractStage")]
+    public string currentContractStage { get; set; }
 }
 
 public class Signature
@@ -358,6 +357,4 @@ public class Suppliers
     [JsonProperty("supplier")]
     public List<Supplier> supplier { get; set; }
 }
-
-
 

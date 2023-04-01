@@ -1,129 +1,35 @@
 ﻿using Newtonsoft.Json;
 
-namespace ConsumerTwo.Models.OnlyContractProcedure
+namespace ConsumerTwo.Models
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class Budget
+    public class Attachment
     {
-        [JsonProperty("code")]
-        public string code { get; set; }
+        [JsonProperty("publishedContentId")]
+        public string publishedContentId { get; set; }
 
-        [JsonProperty("name")]
-        public string name { get; set; }
+        [JsonProperty("fileName")]
+        public string fileName { get; set; }
+
+        [JsonProperty("docDescription")]
+        public string docDescription { get; set; }
+
+        [JsonProperty("docRegNumber")]
+        public string docRegNumber { get; set; }
+
+        [JsonProperty("url")]
+        public string url { get; set; }
+
+        [JsonProperty("cryptoSigns")]
+        public CryptoSigns cryptoSigns { get; set; }
     }
 
-    public class Budgetary
+    public class CryptoSigns
     {
-        [JsonProperty("month")]
-        public int month { get; set; }
+        [JsonProperty("0")]
+        public string? _0 { get; set; }
 
-        [JsonProperty("year")]
-        public int year { get; set; }
-
-        [JsonProperty("substageMonth")]
-        public int substageMonth { get; set; }
-
-        [JsonProperty("substageYear")]
-        public int substageYear { get; set; }
-
-        [JsonProperty("KBK")]
-        public string KBK { get; set; }
-
-        [JsonProperty("price")]
-        public double price { get; set; }
-
-        [JsonProperty("comment")]
-        public string comment { get; set; }
-    }
-
-    public class ContactInfo
-    {
-        [JsonProperty("lastName")]
-        public string lastName { get; set; }
-
-        [JsonProperty("firstName")]
-        public string firstName { get; set; }
-
-        [JsonProperty("middleName")]
-        public string middleName { get; set; }
-    }
-
-    public class ContractProcedure
-    {
-        [JsonProperty("schemeVersion")]
-        public string schemeVersion { get; set; }
-
-        [JsonProperty("id")]
-        public string id { get; set; }
-
-        [JsonProperty("regNum")]
-        public string regNum { get; set; }
-
-        [JsonProperty("number")]
-        public string number { get; set; }
-
-        [JsonProperty("publishDate")]
-        public DateTime publishDate { get; set; }
-
-        [JsonProperty("signDate")]
-        public string signDate { get; set; }
-
-        [JsonProperty("versionNumber")]
-        public string versionNumber { get; set; }
-
-        [JsonProperty("foundation")]
-        public Foundation foundation { get; set; }
-
-        [JsonProperty("customer")]
-        public Customer customer { get; set; }
-
-        [JsonProperty("protocolDate")]
-        public string protocolDate { get; set; }
-
-        [JsonProperty("documentBase")]
-        public string documentBase { get; set; }
-
-        [JsonProperty("price")]
-        public double price { get; set; }
-
-        [JsonProperty("currency")]
-        public Currency currency { get; set; }
-
-        [JsonProperty("singleCustomerReason")]
-        public SingleCustomerReason singleCustomerReason { get; set; }
-
-        [JsonProperty("executionDate")]
-        public ExecutionDate executionDate { get; set; }
-
-        [JsonProperty("finances")]
-        public Finances finances { get; set; }
-
-        [JsonProperty("products")]
-        public Products products { get; set; }
-
-        [JsonProperty("suppliers")]
-        public Suppliers suppliers { get; set; }
-
-        [JsonProperty("href")]
-        public string href { get; set; }
-
-        [JsonProperty("printForm")]
-        public PrintForm printForm { get; set; }
-
-        [JsonProperty("Modification")]
-        public Modification Modification { get; set; }
-
-        [JsonProperty("currentContractStage")]
-        public string currentContractStage { get; set; }
-    }
-
-    public class Country
-    {
-        [JsonProperty("countryCode")]
-        public string countryCode { get; set; }
-
-        [JsonProperty("countryFullName")]
-        public string countryFullName { get; set; }
+        [JsonProperty("signature")]
+        public string[]? signature { get; set; }
     }
 
     public class Currency
@@ -135,133 +41,112 @@ namespace ConsumerTwo.Models.OnlyContractProcedure
         public string name { get; set; }
     }
 
-    public class Customer
+    public class DocAcceptance
     {
-        [JsonProperty("regNum")]
-        public string regNum { get; set; }
+        [JsonProperty("sid")]
+        public string sid { get; set; }
 
-        [JsonProperty("fullName")]
-        public string fullName { get; set; }
+        [JsonProperty("name")]
+        public string name { get; set; }
 
-        [JsonProperty("inn")]
-        public string inn { get; set; }
+        [JsonProperty("documentDate")]
+        public string documentDate { get; set; }
 
-        [JsonProperty("kpp")]
-        public string kpp { get; set; }
+        [JsonProperty("documentNum")]
+        public string documentNum { get; set; }
     }
 
-    public class ExecutionDate
+    public class DocAcceptancePayDoc
     {
-        [JsonProperty("month")]
-        public int month { get; set; }
+        [JsonProperty("isDocAcceptancePayDoc")]
+        public string isDocAcceptancePayDoc { get; set; }
 
-        [JsonProperty("year")]
-        public int year { get; set; }
+        [JsonProperty("payDocToDocAcceptanceCompliances")]
+        public PayDocToDocAcceptanceCompliances payDocToDocAcceptanceCompliances { get; set; }
     }
 
-    public class Extrabudget
+    public class DocTermination
     {
         [JsonProperty("code")]
         public string code { get; set; }
 
         [JsonProperty("name")]
         public string name { get; set; }
+
+        [JsonProperty("documentDate")]
+        public string documentDate { get; set; }
     }
 
-    public class Extrabudgetary
+    public class Execution
     {
-        [JsonProperty("month")]
-        public int month { get; set; }
+        [JsonProperty("payDoc")]
+        public PayDoc payDoc { get; set; }
 
-        [JsonProperty("year")]
-        public int year { get; set; }
+        [JsonProperty("currency")]
+        public Currency currency { get; set; }
 
-        [JsonProperty("substageMonth")]
-        public int substageMonth { get; set; }
+        [JsonProperty("paid")]
+        public string paid { get; set; }
 
-        [JsonProperty("substageYear")]
-        public int substageYear { get; set; }
+        [JsonProperty("paidRUR")]
+        public string paidRUR { get; set; }
 
-        [JsonProperty("KOSGU")]
-        public string KOSGU { get; set; }
+        [JsonProperty("paidVAT")]
+        public string paidVAT { get; set; }
 
-        [JsonProperty("price")]
-        public double price { get; set; }
+        [JsonProperty("paidVATRUR")]
+        public string paidVATRUR { get; set; }
+
+        [JsonProperty("improperExecutionText")]
+        public string improperExecutionText { get; set; }
     }
 
-    public class Finances
+    public class Executions
     {
-        [JsonProperty("financeSource")]
-        public string financeSource { get; set; }
+        [JsonProperty("stage")]
+        public Stage stage { get; set; }
 
-        [JsonProperty("extrabudget")]
-        public Extrabudget extrabudget { get; set; }
+        [JsonProperty("ordinalNumber")]
+        public string ordinalNumber { get; set; }
 
-        [JsonProperty("budget")]
-        public Budget budget { get; set; }
-
-        [JsonProperty("budgetLevel")]
-        public string budgetLevel { get; set; }
-
-        [JsonProperty("budgetary")]
-        public Budgetary budgetary { get; set; }
-
-        [JsonProperty("extrabudgetary")]
-        public Extrabudgetary extrabudgetary { get; set; }
+        [JsonProperty("execution")]
+        public List<Execution> execution { get; set; }
     }
 
-    public class Foundation
+    public class PayDoc
     {
-        [JsonProperty("oosOrder")]
-        public OosOrder oosOrder { get; set; }
+        [JsonProperty("sid")]
+        public string sid { get; set; }
+
+        [JsonProperty("documentName")]
+        public string documentName { get; set; }
+
+        [JsonProperty("documentDate")]
+        public string documentDate { get; set; }
+
+        [JsonProperty("documentNum")]
+        public string documentNum { get; set; }
+
+        [JsonProperty("payDocTypeInfo")]
+        public PayDocTypeInfo payDocTypeInfo { get; set; }
     }
 
-    public class Modification
+    public class PayDocToDocAcceptanceCompliances
     {
-        [JsonProperty("modification")]
-        public string modification { get; set; }
-
-        [JsonProperty("type")]
-        public string type { get; set; }
-
-        [JsonProperty("description")]
-        public string description { get; set; }
-
-        [JsonProperty("base")]
-        public string @base { get; set; }
+        [JsonProperty("docAcceptance")]
+        public DocAcceptance docAcceptance { get; set; }
     }
 
-    public class OKEI
+    public class PayDocTypeInfo
     {
-        [JsonProperty("code")]
-        public string code { get; set; }
-
-        [JsonProperty("nationalCode")]
-        public string nationalCode { get; set; }
+        [JsonProperty("docAcceptancePayDoc")]
+        public DocAcceptancePayDoc docAcceptancePayDoc { get; set; }
     }
 
-    public class OKPD
+    public class PaymentDocuments
     {
-        [JsonProperty("code")]
-        public string code { get; set; }
-
-        [JsonProperty("name")]
-        public string name { get; set; }
-    }
-
-    public class OosOrder
-    {
-        [JsonProperty("chardata")]
-        public string chardata { get; set; }
-
-        [JsonProperty("notificationNumber")]
-        public string notificationNumber { get; set; }
-
-        [JsonProperty("lotNumbert")]
-        public string lotNumbert { get; set; }
-
-        [JsonProperty("placing")]
-        public string placing { get; set; }
+        [JsonProperty("attachment")]
+        public Attachment? attachment { get; set; }
     }
 
     public class PrintForm
@@ -269,105 +154,104 @@ namespace ConsumerTwo.Models.OnlyContractProcedure
         [JsonProperty("url")]
         public string url { get; set; }
 
-        [JsonProperty("signature")]
-        public Signature signature { get; set; }
+        [JsonProperty("docRegNumber")]
+        public string docRegNumber { get; set; }
     }
 
-    public class Product
+    public class Reason
     {
-        [JsonProperty("sid")]
-        public string sid { get; set; }
-
-        [JsonProperty("OKPD")]
-        public OKPD OKPD { get; set; }
+        [JsonProperty("code")]
+        public string code { get; set; }
 
         [JsonProperty("name")]
         public string name { get; set; }
-
-        [JsonProperty("OKEI")]
-        public OKEI OKEI { get; set; }
-
-        [JsonProperty("price")]
-        public double price { get; set; }
-
-        [JsonProperty("quantity")]
-        public int quantity { get; set; }
-
-        [JsonProperty("sum")]
-        public double sum { get; set; }
     }
 
-    public class Products
+    public class ReceiptDocuments
     {
-        [JsonProperty("product")]
-        public List<Product> product { get; set; }
+        [JsonProperty("attachment")]
+        public Attachment? attachment { get; set; }
     }
 
-    public class ResponseProcedure
-    {
-        [JsonProperty("type")]
-        public string type { get; set; }
-
-        [JsonProperty("contract")]
-        public ContractProcedure contract { get; set; }
-    }
-
-    public class Signature
-    {
-        [JsonProperty("type")]
-        public string type { get; set; }
-    }
-
-    public class SingleCustomerReason
+    public class ContractProcedure
     {
         [JsonProperty("id")]
         public string id { get; set; }
 
-        [JsonProperty("name")]
-        public string name { get; set; }
+        [JsonProperty("regNum")]
+        public string regNum { get; set; }
+
+        [JsonProperty("publishDate")]
+        public DateTime publishDate { get; set; }
+
+        [JsonProperty("versionNumber")]
+        public string versionNumber { get; set; }
+
+        [JsonProperty("executions")]
+        public Executions executions { get; set; }
+
+        [JsonProperty("termination")]
+        public Termination termination { get; set; }
+
+        [JsonProperty("printForm")]
+        public PrintForm printForm { get; set; }
+
+        [JsonProperty("terminationDocuments")]
+        public TerminationDocuments terminationDocuments { get; set; }
+
+        [JsonProperty("paymentDocuments")]
+        public PaymentDocuments paymentDocuments { get; set; }
+
+        [JsonProperty("receiptDocuments")]
+        public ReceiptDocuments receiptDocuments { get; set; }
+
+        [JsonProperty("modificationReason")]
+        public string modificationReason { get; set; }
+
+        [JsonProperty("currentContractStage")]
+        public string currentContractStage { get; set; }
+
+        [JsonProperty("okpd2okved2")]
+        public string okpd2okved2 { get; set; }
+
+        [JsonProperty("isEDIBased")]
+        public string isEDIBased { get; set; }
+
+        [JsonProperty("isPURorASFKBased")]
+        public string isPURorASFKBased { get; set; }
+
+        [JsonProperty("isUnilateralRefusalAuto")]
+        public string isUnilateralRefusalAuto { get; set; }
     }
 
-    public class Supplier
+    public class Stage
     {
-        [JsonProperty("participantType")]
-        public string participantType { get; set; }
-
-        [JsonProperty("inn")]
-        public string inn { get; set; }
-
-        [JsonProperty("kpp")]
-        public string kpp { get; set; }
-
-        [JsonProperty("organizationName")]
-        public string organizationName { get; set; }
-
-        [JsonProperty("country")]
-        public Country country { get; set; }
-
-        [JsonProperty("factualAddress")]
-        public string factualAddress { get; set; }
-
-        [JsonProperty("postAddress")]
-        public string postAddress { get; set; }
-
-        [JsonProperty("contactInfo")]
-        public ContactInfo contactInfo { get; set; }
-
-        [JsonProperty("contactEMail")]
-        public string contactEMail { get; set; }
-
-        [JsonProperty("contactPhone")]
-        public string contactPhone { get; set; }
-
-        [JsonProperty("contactFax")]
-        public string contactFax { get; set; }
+        [JsonProperty("endDate")]
+        public string endDate { get; set; }
     }
 
-    public class Suppliers
+    public class Termination
     {
-        [JsonProperty("supplier")]
-        public List<Supplier> supplier { get; set; }
+        [JsonProperty("paid")]
+        public string paid { get; set; }
+
+        [JsonProperty("terminationDate")]
+        public string terminationDate { get; set; }
+
+        [JsonProperty("reasonInfo")]
+        public string reasonInfo { get; set; }
+
+        [JsonProperty("reason")]
+        public Reason reason { get; set; }
+
+        [JsonProperty("docTermination")]
+        public DocTermination docTermination { get; set; }
     }
 
+    public class TerminationDocuments
+    {
+        [JsonProperty("attachment")]
+        public Attachment? attachment { get; set; }
+    }
 
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ConsumerTwo.Models.OnlyContractProcedure;
 using ConsumerTwo.Models;
 using ConsumerTwo.Data;
 
@@ -15,11 +14,11 @@ namespace ConsumerTwo.Controllers
         {
             db = _db;
         }
-        //[HttpGet]
-        //public async Task<string> Get()
-        //{
-        //    return await db.GetContract();
-        //}
+        [HttpGet]
+        public async Task<string> Get()
+        {
+            return await db.GetContract();
+        }
         /// <summary>
         /// Вывод с фильтрацией
         /// </summary>
