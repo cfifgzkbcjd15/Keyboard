@@ -17,8 +17,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddCors();
+
 builder.Services.AddSingleton<MongoContext>();
-builder.Services.AddHostedService<RabbitMqListener>();
+//builder.Services.AddHostedService<RabbitMqListener>();
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //                .AddJwtBearer(options =>
 //                {
@@ -78,7 +80,7 @@ var app = builder.Build();
 //}
 
 app.UseHttpsRedirection();
-
+app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllers();

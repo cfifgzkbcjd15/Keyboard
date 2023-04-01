@@ -20,11 +20,16 @@ namespace Keyboard.Controllers
         {
             return await db.GetContract();
         }
+        [HttpGet("{contractId}")]
+        public async Task<ResponseContracts> Get(string contractId)
+        {
+            return await db.GetContractById(contractId);
+        }
         /// <summary>
         /// Вывод с фильтрацией
         /// </summary>
         [HttpPost("withContract")]
-        public async Task<List<Contract>> FilterContract(RequestFilterContract request)
+        public async Task<List<ResponseContracts>> FilterContract(RequestFilterContract request)
         {
             return await db.GetFilterContract(request);
         }

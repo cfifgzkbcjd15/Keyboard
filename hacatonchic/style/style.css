@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+
+body{
+    background-image: url("../style/main.png");
+    background-color:#F2F2F2;
+    background-size: round auto;
+    background-repeat: repeat;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+    height: 100vh;
+    
+}
+
+.height{
+    height: 15vh;
+}
+
+
+.search{
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+}
+
+.search input{
+    height: 60px;
+    text-indent: 25px;
+}
+
+
+.search input:focus{
+    box-shadow: none;
+}
+
+.search .fa-search{
+    position: absolute;
+    top: 20px;
+    left: 16px;
+}
+
+.search button#search{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 50px;
+    width: 110px;
+}
+.search button#search:hover{
+    background-color: black;
+    color: white;
+}
+
+.search button#filter{
+    position: absolute;
+    top: 5px;
+    right: 120px;
+    height: 50px;
+    width: 60px;
+}
+.search button#filter:hover{
+    background-color: black;
+    color: white;
+}
+.btnHover:hover{
+    background-color: black;
+    color: white;
+}
+
+.btn.btn-primary:hover { background-color: black }
+.btn.btn-primary:focus { background-color: black }

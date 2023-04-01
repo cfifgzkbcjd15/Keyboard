@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Haca</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="../style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+</head>
+<body class="d-flex flex-column">
+    <nav class="navbar bg-body-tertiary border border-dark">
+        <div class="container">
+            <div class="col-12 text-center">
+                <a class="navbar-brand" href="#">
+                    Haca
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-sm border border-top-0 border-dark">
+        <div class="row height d-flex justify-content-center align-items-center" style="background: #F2F2F2;">
+            <div class="col-md-8">
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input type="text" class="form-control rounded-0 border border-dark" placeholder="Задай вопрос">
+                    <button class="btn" id="filter" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                            <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </button>
+                    <button class="btn active rounded-0 " id="search">Поиск</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-0 border border-dark">
+            <div class="modal-header border-bottom-1 border-dark">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Заголовок модального окна</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item pe-1" role="presentation">
+                        <button class="btn active rounded-0 btnHover" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Контракт</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="btn rounded-0 btnHover" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Продукт</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <form id="contract">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <p class="text">Заказчик</p>
+                                    <input id="customer" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text">Продукт</p>
+                                    <input id="prodyct" name="prodyct" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-12">
+                                    <p class="text">Выбор по дате</p>
+                                    <label for="from">От</label>
+                                        <input type="date" id="from" name="from">
+                                    <label for="to">по</label>
+                                        <input type="date" id="to" name="to">
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <p class="text">Мин сумма</p>
+                                    <input id="minSumm" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text">Макс сумма</p>
+                                    <input id="maxSumm" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <button id="sendContract" type="button" name="send" class="btn rounded-0" style="background-color: black; color: white;">Сохранить изменения</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <form id="prodacts">
+                            <p class="text">Выбор по дате</p>
+                            <label for="from">От</label>
+                                <input type="text" id="from" name="from">
+                            <label for="to">по</label>
+                                <input type="text" id="to" name="to">
+                            <div class="row mb-2">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button id="sendProdacts" type="button" name="send" class="btn rounded-0" style="background-color: black; color: white;">Сохранить изменения</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer border-start-1 border-dark">
+                <button type="button" class="btn active rounded-0 btnHover" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="container-sm border border-top-0 border-bottom-0 border-dark p-0">
+        <ol id="listValue" class="list-group">
+            
+        </ol>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-0 border border-dark">
+            <div class="modal-header border-bottom-1 border-dark">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Заголовок модального окна</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item pe-1" role="presentation">
+                        <button class="btn active rounded-0 btnHover" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Контракт</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="btn rounded-0 btnHover" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Продукт</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <form id="contract">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <p class="text">Заказчик</p>
+                                    <input id="customer" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text">Продукт</p>
+                                    <input id="prodyct" name="prodyct" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-12">
+                                    <p class="text">Выбор по дате</p>
+                                    <label for="from">От</label>
+                                        <input type="date" id="from" name="from">
+                                    <label for="to">по</label>
+                                        <input type="date" id="to" name="to">
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <p class="text">Мин сумма</p>
+                                    <input id="minSumm" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text">Макс сумма</p>
+                                    <input id="maxSumm" class="form-control shadow-none rounded-0 border border-dark"></input>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <button id="sendContract" type="button" name="send" class="btn rounded-0" style="background-color: black; color: white;">Сохранить изменения</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <form id="prodacts">
+                            <p class="text">Выбор по дате</p>
+                            <label for="from">От</label>
+                                <input type="text" id="from" name="from">
+                            <label for="to">по</label>
+                                <input type="text" id="to" name="to">
+                            <div class="row mb-2">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button id="sendProdacts" type="button" name="send" class="btn rounded-0" style="background-color: black; color: white;">Сохранить изменения</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+             <div class="modal" style="display:block" tabindex="-1">
+        
+
+        <div class="modal fade" id="modalValue" tabindex="-1" aria-labelledby="modalValue" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalValue">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+        </div>
+    </div>
+    </div>
+
+    <footer class="footer mt-auto bg-light border border-dark p-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 border border-top-0 border-bottom-1 border-dark p-3 text-center">
+                    <span class="text-muted">Haca</span>
+                </div>
+
+                <div class="col-sm-6 p-3 text-center border border-start-0 border-end-0 border-top-0 border-bottom-1 border-dark">
+                    
+                </div>
+
+                <div class="col-sm-3 border border-top-0 border-dark p-3 text-center">
+                    <span class="text-muted">© 2023 Copyright:by Slowbag</span>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>
