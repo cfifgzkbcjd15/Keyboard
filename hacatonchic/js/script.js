@@ -115,7 +115,7 @@ $(function()
                             </div>
                             <div class="col-sm-6"></div>
                             <div class="col-sm-3">
-                                <button id="${data[x].id}" onClick="reply_click(renderModalValue.id)" class="btn active rounded-0 btnHover" data-bs-toggle="modal" data-bs-target="#modalValue" >Просмотр</button>
+                                <button id="${data[x].id}" onClick="renderModalValue(this.id)" class="btn active rounded-0 btnHover" data-bs-toggle="modal" data-bs-target="#modalValue" >Просмотр</button>
                             </div>
                         </div>
                     </li>
@@ -150,53 +150,54 @@ $(function()
         }
     };
 
-    async function renderList(data)
+    setTimeout(function () 
     {
-        for (let x in data)
-                {
-                    $("#listValue").append(
-                    `
-                        <li class="list-group-item border border-top-0 border-start-0 border-end-0 rounded-0 border-dark" style="background: #F2F2F2;">
-                        <div class="row mb-2">
-                            <div class="col-sm-9">
-                                <p class="text-muted m-0">Название</p>
-                                <p class="text m-0">${data[x].customer.fullName}</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="text-muted m-0">Дата</p>
-                                <p class="text m-0">${"От " + data[x].signDate.replace(/[^\-/:0-9]/g," ")} <br/>${"По " + data[x].publishDate.replace(/[^\-/:0-9]/g," ")}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="text-muted m-0">Цена</p>
-                                <p class="text m-0">${data[x].price} ру</p>
-                            </div>
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-3">
-                                <button id="${data[x].id}" onClick="reply_click(renderModalValue.id)" class="btn active rounded-0 btnHover" data-bs-toggle="modal" data-bs-target="#modalValue" >Просмотр</button>
-                            </div>
-                        </div>
-                    </li>
-                    `);
-                };
-    }
+        $("#loaderPage").remove();
+    }, 100);
+    
+});
 
-    async function renderModalValue(id)
+function renderModalValue(id)
     {
 
 
 
         $.ajax({
-            url: `https://localhost:44358/api/Contract`,
+            url: `https://localhost:44358/api/Contract/${id}` ,
             method: 'get',
             contentType:'application/json',
             dataType: 'json',
-            data: {contractId: id},
             success: function(data)
             {
-                $("#listValue").empty()
-                renderList(data);
+                $("#divModalValue").empty();
+                
+                    $("#divModalValue").append(
+                    `
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="text">Ид</p>
+                                <p class="text-muted">${data.id}</p>
+                            </div>
+                            <div class="col-sm-4"><p class="text">Ссылка</p><p class="text-muted">${data.href}</p></div>
+                            <div class="col-sm-4"><p class="text">Цена</p><p class="text-muted">${data.price}</p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"><p class="text">Регестрационый номер</p><p class="text-muted">${data.customer.regNum}</p></div>
+                            <div class="col-sm-3"><p class="text">Имя</p><p class="text-muted">${data.customer.fullName}</p></div>
+                            <div class="col-sm-3"><p class="text">ИНН</p><p class="text-muted">${data.customer.inn}</p></div>
+                            <div class="col-sm-3"><p class="text">КПП</p><p class="text-muted">${data.customer.kpp}</p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><p class="text">СИД</p><p class="text-muted">${data.products.sid}</p></div>
+                            <div class="col-sm-2"><p class="text">Имя</p><p class="text-muted">${data.products.name}</p></div>
+                            <div class="col-sm-2"><p class="text">Цена</p><p class="text-muted">${data.products.price}</p></div>
+                            <div class="col-sm-2"><p class="text">Количество</p><p class="text-muted">${data.products.quantity}</p></div>
+                            <div class="col-sm-2"><p class="text">Цена</p><p class="text-muted">${data.products.sum}</p></div>
+                        </div>
+                        
+                    `);
+                
+
             },
             error: function (jqXHR, exception) 
             {
@@ -205,10 +206,3 @@ $(function()
         });
 
     }
-
-    setTimeout(function () 
-    {
-        $("#loaderPage").remove();
-    }, 100);
-    
-});
