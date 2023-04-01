@@ -3,12 +3,11 @@ using RabbitMQ.Client;
 using System.Text;
 using System.Diagnostics;
 //using System.Text.Json;
-using Keyboard.Models;
-using Keyboard.Data;
 using Newtonsoft.Json;
-using Keyboard.Models.OnlyContract;
+using ConsumerTwo.Data;
+using ConsumerTwo.Models.OnlyContractProcedure;
 
-namespace Keyboard.Code
+namespace ConsumerTwo.Code
 {
     public class RabbitMqListener : BackgroundService
     {
@@ -40,8 +39,8 @@ namespace Keyboard.Code
                 {
                     var content = Encoding.UTF8.GetString(ea.Body.ToArray());
                     //var result = JsonSerializer.Deserialize<Contract>(content);
-                    var result = JsonConvert.DeserializeObject<Contract>(content);
-                    await db.CreateContracts(result);
+                    var result = JsonConvert.DeserializeObject<ContractProcedure>(content);
+                    await db.CreateContractsProcedure(result);
 
                     
                     //_channel.BasicAck(ea.DeliveryTag, false);

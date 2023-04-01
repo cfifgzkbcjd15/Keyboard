@@ -1,14 +1,13 @@
-﻿using Keyboard.Models;
-using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using Microsoft.Extensions.Options;
-using Keyboard.Code;
 using System.Runtime.CompilerServices;
 using MongoDB.Driver.Linq;
 using System.Diagnostics;
-using Keyboard.Models.OnlyContract;
+using ConsumerTwo.Code;
+using ConsumerTwo.Models.OnlyContractProcedure;
+using ConsumerTwo.Models;
 
-namespace Keyboard.Data
+namespace ConsumerTwo.Data
 {
     public class MongoContext
     {
@@ -18,30 +17,24 @@ namespace Keyboard.Data
             MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
             db = client.GetDatabase(mongoDBSettings.Value.DatabaseName);;
         }
-        public async Task<string> CreateContracts(Contract request)
+        public async Task<string> CreateContractsProcedure(ContractProcedure request)
         {
-            try {
-            await db.GetCollection<Contract>("contracts").InsertOneAsync(request);
+            try
+            {
+                await db.GetCollection<ContractProcedure>("contractsProcedure").InsertOneAsync(request);
                 return "Success";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.Write(ex.Message);
                 return null;
             }
         }
-        public async Task<string> GetContract()
-        {  // обращаемся к базе данных // получаем коллекцию users
-            //await db.DeleteManyAsync(x => x.id != null);
-            var contracts = await db.GetCollection<Contract>("contracts").Find("{}").ToListAsync();
-            var result = contracts.ToJson();
-            return result;
-        }
-        public async Task<List<Contract>> GetFilterContract(RequestFilterContract request)
+        public async Task<List<ContractProcedure>> GetFilterContractProcedure(RequestFilterContractProcedure request)
         {
-            IMongoQueryable<Contract> contracts = db.GetCollection<Contract>("contracts").AsQueryable();
+            IMongoQueryable<ContractProcedure> contracts = db.GetCollection<ContractProcedure>("contractsProcedure").AsQueryable();
             //var contracts = await db.AsQueryable().ToListAsync();
-            if(request.MaxPrice==0)
+            if (request.MaxPrice == 0)
                 request.MaxPrice = int.MaxValue;
             contracts = contracts.Where(x => x.price < request.MaxPrice && x.price > request.MinPrice);
             contracts = contracts.Where(x => x.publishDate > request.StartDate && x.publishDate < request.EndDate);
@@ -63,5 +56,6 @@ namespace Keyboard.Data
             var result = await contracts.Take(10).Skip(20 * request.Page).ToListAsync();
             return result;
         }
+
     }
 }

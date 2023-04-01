@@ -1,6 +1,6 @@
 ﻿namespace Keyboard.Models
 {
-    public class RequestFilter
+    public class RequestFilterContract
     {
         public int MinPrice { get; set; } = 0;
         public int MaxPrice { get; set; }

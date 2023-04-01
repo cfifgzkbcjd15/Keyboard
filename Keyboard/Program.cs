@@ -18,9 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<MongoContext>();
-builder.Services.AddHostedService<RabbitMqListener>();
-ConfigurationManager configuration = builder.Configuration;
-
+//builder.Services.AddHostedService<RabbitMqListener>();
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //                .AddJwtBearer(options =>
 //                {
